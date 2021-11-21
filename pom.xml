@@ -52,11 +52,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
-
-
-
     </dependencies>
-
 
     <dependencyManagement>
         <dependencies>
@@ -69,7 +65,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <plugins>

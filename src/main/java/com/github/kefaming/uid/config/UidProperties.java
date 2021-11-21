@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 @ConfigurationProperties(prefix = "uid")
 public class UidProperties {
-    private int timeBits = 29;
-    private int workerBits = 21;
+    private int timeBits = 28;
+    private int workerBits = 22;
     private int seqBits = 13;
     private String epochStr = "2016-09-20";
     private long epochSeconds = TimeUnit.MILLISECONDS.toSeconds(1463673600000L);
