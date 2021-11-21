@@ -21,6 +21,7 @@ import com.github.kefaming.uid.buffer.BufferPaddingExecutor;
 import com.github.kefaming.uid.buffer.RejectedPutBufferHandler;
 import com.github.kefaming.uid.buffer.RejectedTakeBufferHandler;
 import com.github.kefaming.uid.buffer.RingBuffer;
+import com.github.kefaming.uid.config.UidProperties;
 import com.github.kefaming.uid.exception.UidGenerateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

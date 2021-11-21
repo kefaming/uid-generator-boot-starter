@@ -17,6 +17,7 @@ package com.github.kefaming.uid.impl;
 
 import com.github.kefaming.uid.BitsAllocator;
 import com.github.kefaming.uid.UidGenerator;
+import com.github.kefaming.uid.config.UidProperties;
 import com.github.kefaming.uid.exception.UidGenerateException;
 import com.github.kefaming.uid.utils.DateUtils;
 import com.github.kefaming.uid.worker.WorkerIdAssigner;

@@ -1,4 +1,4 @@
-package com.github.kefaming.uid.impl;
+package com.github.kefaming.uid.config;
 
 import com.github.kefaming.uid.utils.DateUtils;
 import org.apache.commons.lang.StringUtils;
