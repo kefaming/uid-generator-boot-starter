@@ -1,13 +1,11 @@
-package com.github.kefaming.uid.prop;
+package com.github.kefaming.uid.config;
 
 import com.github.kefaming.uid.utils.DateUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
 @ConfigurationProperties(prefix = "uid")
 public class UidProperties {
     private int timeBits = 29;
