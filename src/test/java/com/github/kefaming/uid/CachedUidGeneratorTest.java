@@ -1,7 +1,7 @@
-package com.example.demo;
+package com.github.kefaming.uid;
 
 import com.github.kefaming.uid.UidGenerator;
-import com.github.kefaming.uid.impl.DefaultUidGenerator;
+import com.github.kefaming.uid.impl.CachedUidGenerator;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,27 +20,28 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Test for {@link DefaultUidGenerator}
+ * Test for {@link CachedUidGenerator}
  *
  * @author yutianbao
- * @author wujun
  */
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class DefaultUidGeneratorTest {
-    private static final int SIZE = 100; // 10w
-    private static final boolean VERBOSE = true;
+public class CachedUidGeneratorTest {
+    private static final int SIZE = 7000; // 700w
+    private static final boolean VERBOSE = false;
     private static final int THREADS = Runtime.getRuntime().availableProcessors() << 1;
 
     @Resource
-    private UidGenerator defaultUidGenerator;
+    private UidGenerator cachedUidGenerator;
 
     /**
      * Test for serially generate
+     *
+     * @throws IOException
      */
     @Test
-    public void testSerialGenerate() {
+    public void testSerialGenerate() throws IOException {
         // Generate UID serially
         Set<Long> uidSet = new HashSet<>(SIZE);
         for (int i = 0; i < SIZE; i++) {
@@ -54,9 +56,10 @@ public class DefaultUidGeneratorTest {
      * Test for parallel generate
      *
      * @throws InterruptedException
+     * @throws IOException
      */
     @Test
-    public void testParallelGenerate() throws InterruptedException {
+    public void testParallelGenerate() throws InterruptedException, IOException {
         AtomicInteger control = new AtomicInteger(-1);
         Set<Long> uidSet = new ConcurrentSkipListSet<>();
 
@@ -75,7 +78,7 @@ public class DefaultUidGeneratorTest {
             thread.join();
         }
 
-        // Check generate 10w times
+        // Check generate 700w times
         Assert.assertEquals(SIZE, control.get());
 
         // Check UIDs are all unique
@@ -83,7 +86,7 @@ public class DefaultUidGeneratorTest {
     }
 
     /**
-     * Worker run
+     * Woker run
      */
     private void workerRun(Set<Long> uidSet, AtomicInteger control) {
         for (;;) {
@@ -100,9 +103,12 @@ public class DefaultUidGeneratorTest {
      * Do generating
      */
     private void doGenerate(Set<Long> uidSet, int index) {
-        long uid = defaultUidGenerator.getUID();
-        String parsedInfo = defaultUidGenerator.parseUID(uid);
-        uidSet.add(uid);
+        long uid = cachedUidGenerator.getUID();
+        String parsedInfo = cachedUidGenerator.parseUID(uid);
+        boolean existed = !uidSet.add(uid);
+        if (existed) {
+            System.out.println("Found duplicate UID " + uid);
+        }
 
         // Check UID is positive, and can be parsed
         Assert.assertTrue(uid > 0L);
@@ -116,7 +122,7 @@ public class DefaultUidGeneratorTest {
     /**
      * Check UIDs are all unique
      */
-    private void checkUniqueID(Set<Long> uidSet) {
+    private void checkUniqueID(Set<Long> uidSet) throws IOException {
         System.out.println(uidSet.size());
         Assert.assertEquals(SIZE, uidSet.size());
     }
