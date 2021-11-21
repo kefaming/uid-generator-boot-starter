@@ -18,6 +18,7 @@ package com.github.kefaming.uid.impl;
 import com.github.kefaming.uid.BitsAllocator;
 import com.github.kefaming.uid.UidGenerator;
 import com.github.kefaming.uid.exception.UidGenerateException;
+import com.github.kefaming.uid.prop.UidProperties;
 import com.github.kefaming.uid.utils.DateUtils;
 import com.github.kefaming.uid.worker.WorkerIdAssigner;
 import org.apache.commons.lang.StringUtils;
@@ -60,14 +61,17 @@ import java.util.concurrent.TimeUnit;
 public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUidGenerator.class);
 
-    /** Bits allocate */
-    protected int timeBits = 28;
-    protected int workerBits = 22;
-    protected int seqBits = 13;
+//    /** Bits allocate */
+//    protected int timeBits = 28;
+//    protected int workerBits = 22;
+//    protected int seqBits = 13;
+//
+//
+//    /** Customer epoch, unit as second. For example 2016-05-20 (ms: 1463673600000)*/
+//    protected String epochStr = "2016-05-20";
+//    protected long epochSeconds = TimeUnit.MILLISECONDS.toSeconds(1463673600000L);
 
-    /** Customer epoch, unit as second. For example 2016-05-20 (ms: 1463673600000)*/
-    protected String epochStr = "2016-05-20";
-    protected long epochSeconds = TimeUnit.MILLISECONDS.toSeconds(1463673600000L);
+    protected UidProperties uidProperties;
 
     /** Stable fields after spring bean initializing */
     protected BitsAllocator bitsAllocator;
@@ -80,10 +84,14 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     /** Spring property */
     protected WorkerIdAssigner workerIdAssigner;
 
+    public DefaultUidGenerator(UidProperties uidProperties) {
+        this.uidProperties = uidProperties;
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         // initialize bits allocator
-        bitsAllocator = new BitsAllocator(timeBits, workerBits, seqBits);
+        bitsAllocator = new BitsAllocator(uidProperties.getSeqBits(), uidProperties.getWorkerBits(), uidProperties.getSeqBits());
 
         // initialize worker id
         workerId = workerIdAssigner.assignWorkerId();
@@ -91,7 +99,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
             throw new RuntimeException("Worker id " + workerId + " exceeds the max " + bitsAllocator.getMaxWorkerId());
         }
 
-        LOGGER.info("Initialized bits(1, {}, {}, {}) for workerID:{}", timeBits, workerBits, seqBits, workerId);
+        LOGGER.info("Initialized bits(1, {}, {}, {}) for workerID:{}", uidProperties.getTimeBits(), uidProperties.getWorkerBits(), uidProperties.getSeqBits(), workerId);
     }
 
     @Override
@@ -117,7 +125,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
         long workerId = (uid << (timestampBits + signBits)) >>> (totalBits - workerIdBits);
         long deltaSeconds = uid >>> (workerIdBits + sequenceBits);
 
-        Date thatTime = new Date(TimeUnit.SECONDS.toMillis(epochSeconds + deltaSeconds));
+        Date thatTime = new Date(TimeUnit.SECONDS.toMillis(uidProperties.getEpochSeconds() + deltaSeconds));
         String thatTimeStr = DateUtils.formatByDateTimePattern(thatTime);
 
         // format as string
@@ -156,7 +164,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
         lastSecond = currentSecond;
 
         // Allocate bits for UID
-        return bitsAllocator.allocate(currentSecond - epochSeconds, workerId, sequence);
+        return bitsAllocator.allocate(currentSecond - uidProperties.getEpochSeconds(), workerId, sequence);
     }
 
     /**
@@ -176,42 +184,42 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
      */
     private long getCurrentSecond() {
         long currentSecond = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-        if (currentSecond - epochSeconds > bitsAllocator.getMaxDeltaSeconds()) {
+        if (currentSecond - uidProperties.getEpochSeconds() > bitsAllocator.getMaxDeltaSeconds()) {
             throw new UidGenerateException("Timestamp bits is exhausted. Refusing UID generate. Now: " + currentSecond);
         }
 
         return currentSecond;
     }
 
-    /**
-     * Setters for spring property
-     */
-    public void setWorkerIdAssigner(WorkerIdAssigner workerIdAssigner) {
-        this.workerIdAssigner = workerIdAssigner;
-    }
-
-    public void setTimeBits(int timeBits) {
-        if (timeBits > 0) {
-            this.timeBits = timeBits;
-        }
-    }
-
-    public void setWorkerBits(int workerBits) {
-        if (workerBits > 0) {
-            this.workerBits = workerBits;
-        }
-    }
-
-    public void setSeqBits(int seqBits) {
-        if (seqBits > 0) {
-            this.seqBits = seqBits;
-        }
-    }
-
-    public void setEpochStr(String epochStr) {
-        if (StringUtils.isNotBlank(epochStr)) {
-            this.epochStr = epochStr;
-            this.epochSeconds = TimeUnit.MILLISECONDS.toSeconds(DateUtils.parseByDayPattern(epochStr).getTime());
-        }
-    }
+//    /**
+//     * Setters for spring property
+//     */
+//    public void setWorkerIdAssigner(WorkerIdAssigner workerIdAssigner) {
+//        this.workerIdAssigner = workerIdAssigner;
+//    }
+//
+//    public void setTimeBits(int timeBits) {
+//        if (timeBits > 0) {
+//            this.timeBits = timeBits;
+//        }
+//    }
+//
+//    public void setWorkerBits(int workerBits) {
+//        if (workerBits > 0) {
+//            this.workerBits = workerBits;
+//        }
+//    }
+//
+//    public void setSeqBits(int seqBits) {
+//        if (seqBits > 0) {
+//            this.seqBits = seqBits;
+//        }
+//    }
+//
+//    public void setEpochStr(String epochStr) {
+//        if (StringUtils.isNotBlank(epochStr)) {
+//            this.epochStr = epochStr;
+//            this.epochSeconds = TimeUnit.MILLISECONDS.toSeconds(DateUtils.parseByDayPattern(epochStr).getTime());
+//        }
+//    }
 }
