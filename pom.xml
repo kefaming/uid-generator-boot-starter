@@ -2,29 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-<!--    <parent>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-<!--        <version>2.1.3</version>-->
-<!--        <relativePath/>-->
-<!--    </parent>-->
     <groupId>com.github.kefamig</groupId>
-    <artifactId>uid-generator-demo</artifactId>
+    <artifactId>uid-generator-boot-starter</artifactId>
     <version>1.0.0.RELEASE</version>
-    <name>uid-generator-demo</name>
-    <description>uid-generator-demo</description>
+    <name>uid-generator-boot-starter</name>
+    <packaging>jar</packaging>
+    <description>An unique id generator based on baidu uid-generator</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <mybatis.version>3.5.1</mybatis.version>
-        <mybatis-spring.version>2.0.1</mybatis-spring.version>
         <mybatisplus.version>3.4.3.4</mybatisplus.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j-version>1.7.7</slf4j-version>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
