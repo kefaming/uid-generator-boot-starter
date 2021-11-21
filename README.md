@@ -1,9 +1,9 @@
 # uid-generator-boot-starter
 
-基于百度 UidGenerator改造，可直接在 Mavenn 或 Gradle 中引用。
+基于百度 UidGenerator改造，可直接通过 Mavenn 或 Gradle 引用。
 
 ### 参考文献：
 
-[1].UidGenerator: https://github.com/baidu/uid-generator
+[1]. UidGenerator: https://github.com/baidu/uid-generator
 
-[2].https://github.com/wujun234/uid-generator-spring-boot-starter
+[2]. uid-generator-spring-boot-starter: https://github.com/wujun234/uid-generator-spring-boot-starter
