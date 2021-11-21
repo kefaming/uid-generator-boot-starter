@@ -4,6 +4,6 @@
 
 ### 参考文献：
 
-[1].https://github.com/baidu/uid-generator
+[1].UidGenerator: https://github.com/baidu/uid-generator
 
 [2].https://github.com/wujun234/uid-generator-spring-boot-starter
