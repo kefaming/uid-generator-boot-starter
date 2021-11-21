@@ -1,6 +1,6 @@
 # uid-generator-boot-starter
 
-百度 UidGenerator改造版，可直接通过 Mavenn 或 Gradle 引用。
+百度 UidGenerator改造版，可直接通过 Maven 或 Gradle 引用。
 
 ### 参考文献：
 
