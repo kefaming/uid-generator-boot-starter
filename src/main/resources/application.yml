@@ -1,0 +1,29 @@
+server:
+  port: 19222 #设置端口
+  servlet:
+    context-path: / #设置应用的目录.  前缀需要带/, 无需设置后缀, 示例 【 /xxx 】 or 【 / 】
+spring:
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  thymeleaf:
+    suffix: .html
+    prefix=classpath: /templates/
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/admin
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.jdbc.Driver
+#mybatis-plus:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.example.demo.mapper # 在mapper文件中实体类前不用写包名
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: info   #主日志级别
+    com.example.demo: debug   #该项目日志级别，当需要打印sql时请开启为debug
+  file:
+    path: ./logs
