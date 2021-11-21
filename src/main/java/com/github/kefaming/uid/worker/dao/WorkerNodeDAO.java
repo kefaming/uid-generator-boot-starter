@@ -16,7 +16,9 @@
 package com.github.kefaming.uid.worker.dao;
 
 import com.github.kefaming.uid.worker.entity.WorkerNodeEntity;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -34,6 +36,18 @@ public interface WorkerNodeDAO {
      * @param port
      * @return
      */
+    @Select("SELECT " +
+            " ID," +
+            " HOST_NAME," +
+            " PORT," +
+            " TYPE," +
+            " LAUNCH_DATE," +
+            " MODIFIED," +
+            " CREATED" +
+            " FROM" +
+            " WORKER_NODE" +
+            " WHERE" +
+            " HOST_NAME = #{host,jdbcType=VARCHAR} AND PORT = #{port,jdbcType=VARCHAR} limit 1")
     WorkerNodeEntity getWorkerNodeByHostPort(@Param("host") String host, @Param("port") String port);
 
     /**
@@ -41,6 +55,20 @@ public interface WorkerNodeDAO {
      *
      * @param workerNodeEntity
      */
+    @Insert("INSERT INTO WORKER_NODE" +
+            "(HOST_NAME," +
+            "PORT," +
+            "TYPE," +
+            "LAUNCH_DATE," +
+            "MODIFIED," +
+            "CREATED)" +
+            "VALUES (" +
+            "#{hostName}," +
+            "#{port}," +
+            "#{type}," +
+            "#{launchDate}," +
+            "NOW()," +
+            "NOW())")
     void addWorkerNode(WorkerNodeEntity workerNodeEntity);
 
 }

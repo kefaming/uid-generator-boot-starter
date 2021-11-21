@@ -1,5 +1,6 @@
-package com.github.kefaming.uid.config;
+package com.github.kefaming.uid;
 
+import com.github.kefaming.uid.impl.UidProperties;
 import com.github.kefaming.uid.impl.CachedUidGenerator;
 import com.github.kefaming.uid.impl.DefaultUidGenerator;
 import com.github.kefaming.uid.worker.DisposableWorkerIdAssigner;

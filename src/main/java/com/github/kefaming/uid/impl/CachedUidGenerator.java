@@ -22,7 +22,6 @@ import com.github.kefaming.uid.buffer.RejectedPutBufferHandler;
 import com.github.kefaming.uid.buffer.RejectedTakeBufferHandler;
 import com.github.kefaming.uid.buffer.RingBuffer;
 import com.github.kefaming.uid.exception.UidGenerateException;
-import com.github.kefaming.uid.config.UidProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;

@@ -18,12 +18,12 @@ package com.github.kefaming.uid.impl;
 import com.github.kefaming.uid.BitsAllocator;
 import com.github.kefaming.uid.UidGenerator;
 import com.github.kefaming.uid.exception.UidGenerateException;
-import com.github.kefaming.uid.config.UidProperties;
 import com.github.kefaming.uid.utils.DateUtils;
 import com.github.kefaming.uid.worker.WorkerIdAssigner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -81,6 +81,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     protected long lastSecond = -1L;
 
     /** Spring property */
+    @Autowired
     protected WorkerIdAssigner workerIdAssigner;
 
     public DefaultUidGenerator(UidProperties uidProperties) {
@@ -90,7 +91,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         // initialize bits allocator
-        bitsAllocator = new BitsAllocator(uidProperties.getSeqBits(), uidProperties.getWorkerBits(), uidProperties.getSeqBits());
+        bitsAllocator = new BitsAllocator(uidProperties.getTimeBits(), uidProperties.getWorkerBits(), uidProperties.getSeqBits());
 
         // initialize worker id
         workerId = workerIdAssigner.assignWorkerId();
@@ -221,4 +222,5 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
 //            this.epochSeconds = TimeUnit.MILLISECONDS.toSeconds(DateUtils.parseByDayPattern(epochStr).getTime());
 //        }
 //    }
+
 }
