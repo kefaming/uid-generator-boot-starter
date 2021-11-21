@@ -1,5 +1,9 @@
-百度 UidGenerator 分布式ID（基于雪花算法）Maven 改造版，可直接在 pom.xml 中引用。
+# uid-generator-boot-starter
 
+基于百度 UidGenerator改造，可直接在 Mavenn 或 Gradle 中引用。
 
-UidGenerator：https://github.com/baidu/uid-generator
-参考：https://github.com/wujun234/uid-generator-spring-boot-starter
+### 参考文献：
+
+[1].https://github.com/baidu/uid-generator
+
+[2].https://github.com/wujun234/uid-generator-spring-boot-starter
