@@ -22,6 +22,7 @@ import com.github.kefaming.uid.buffer.RejectedPutBufferHandler;
 import com.github.kefaming.uid.buffer.RejectedTakeBufferHandler;
 import com.github.kefaming.uid.buffer.RingBuffer;
 import com.github.kefaming.uid.exception.UidGenerateException;
+import com.github.kefaming.uid.prop.UidProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -62,6 +63,10 @@ public class CachedUidGenerator extends DefaultUidGenerator implements Disposabl
     /** RingBuffer */
     private RingBuffer ringBuffer;
     private BufferPaddingExecutor bufferPaddingExecutor;
+
+    public CachedUidGenerator(UidProperties uidProperties) {
+        super(uidProperties);
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -105,7 +110,7 @@ public class CachedUidGenerator extends DefaultUidGenerator implements Disposabl
         List<Long> uidList = new ArrayList<>(listSize);
 
         // Allocate the first sequence of the second, the others can be calculated with the offset
-        long firstSeqUid = bitsAllocator.allocate(currentSecond - epochSeconds, workerId, 0L);
+        long firstSeqUid = bitsAllocator.allocate(currentSecond - uidProperties.getEpochSeconds(), workerId, 0L);
         for (int offset = 0; offset < listSize; offset++) {
             uidList.add(firstSeqUid + offset);
         }
