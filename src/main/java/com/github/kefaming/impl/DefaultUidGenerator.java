@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.impl;
+package com.github.kefaming.impl;
 
-import com.baidu.fsg.uid.BitsAllocator;
-import com.baidu.fsg.uid.UidGenerator;
-import com.baidu.fsg.uid.exception.UidGenerateException;
-import com.baidu.fsg.uid.utils.DateUtils;
-import com.baidu.fsg.uid.worker.WorkerIdAssigner;
+import com.github.kefaming.BitsAllocator;
+import com.github.kefaming.UidGenerator;
+import com.github.kefaming.exception.UidGenerateException;
+import com.github.kefaming.utils.DateUtils;
+import com.github.kefaming.worker.WorkerIdAssigner;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

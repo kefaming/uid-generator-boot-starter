@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.worker;
+package com.github.kefaming.worker;
 
-import com.baidu.fsg.uid.utils.DockerUtils;
-import com.baidu.fsg.uid.utils.NetUtils;
-import com.baidu.fsg.uid.worker.dao.WorkerNodeDAO;
-import com.baidu.fsg.uid.worker.entity.WorkerNodeEntity;
+import com.github.kefaming.utils.DockerUtils;
+import com.github.kefaming.utils.NetUtils;
+import com.github.kefaming.worker.dao.WorkerNodeDAO;
+import com.github.kefaming.worker.entity.WorkerNodeEntity;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

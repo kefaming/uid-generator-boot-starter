@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.worker;
+package com.github.kefaming.buffer;
 
 /**
- * Represents a worker id assigner for {@link com.baidu.fsg.uid.impl.DefaultUidGenerator}
+ * If cursor catches the tail it means that the ring buffer is empty, any more buffer take request will be rejected.
+ * Specify the policy to handle the reject. This is a Lambda supported interface
  *
  * @author yutianbao
  */
-public interface WorkerIdAssigner {
+@FunctionalInterface
+public interface RejectedTakeBufferHandler {
 
     /**
-     * Assign worker id for {@link com.baidu.fsg.uid.impl.DefaultUidGenerator}
+     * Reject take buffer request
      *
-     * @return assigned worker id
+     * @param ringBuffer
      */
-    long assignWorkerId();
-
+    void rejectTakeBuffer(RingBuffer ringBuffer);
 }

@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.utils;
+package com.github.kefaming.worker;
+
+import com.github.kefaming.impl.DefaultUidGenerator;
 
 /**
- * {@code ValuedEnum} defines an enumeration which is bounded to a value, you
- * may implements this interface when you defines such kind of enumeration, that
- * you can use {@link EnumUtils} to simplify parse and valueOf operation.
+ * Represents a worker id assigner for {@link DefaultUidGenerator}
  *
  * @author yutianbao
  */
-public interface ValuedEnum<T> {
-    T value();
+public interface WorkerIdAssigner {
+
+    /**
+     * Assign worker id for {@link DefaultUidGenerator}
+     *
+     * @return assigned worker id
+     */
+    long assignWorkerId();
+
 }

@@ -13,22 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.buffer;
+package com.github.kefaming.worker.dao;
+
+import com.github.kefaming.worker.entity.WorkerNodeEntity;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 /**
- * If tail catches the cursor it means that the ring buffer is full, any more buffer put request will be rejected.
- * Specify the policy to handle the reject. This is a Lambda supported interface
+ * DAO for M_WORKER_NODE
  *
  * @author yutianbao
  */
-@FunctionalInterface
-public interface RejectedPutBufferHandler {
+@Repository
+public interface WorkerNodeDAO {
 
     /**
-     * Reject put buffer request
+     * Get {@link WorkerNodeEntity} by node host
      *
-     * @param ringBuffer
-     * @param uid
+     * @param host
+     * @param port
+     * @return
      */
-    void rejectPutBuffer(RingBuffer ringBuffer, long uid);
+    WorkerNodeEntity getWorkerNodeByHostPort(@Param("host") String host, @Param("port") String port);
+
+    /**
+     * Add {@link WorkerNodeEntity}
+     *
+     * @param workerNodeEntity
+     */
+    void addWorkerNode(WorkerNodeEntity workerNodeEntity);
+
 }

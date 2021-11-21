@@ -13,34 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.worker.dao;
+package com.github.kefaming;
 
-import com.baidu.fsg.uid.worker.entity.WorkerNodeEntity;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import com.github.kefaming.exception.UidGenerateException;
 
 /**
- * DAO for M_WORKER_NODE
+ * Represents a unique id generator.
  *
  * @author yutianbao
  */
-@Repository
-public interface WorkerNodeDAO {
+public interface UidGenerator {
 
     /**
-     * Get {@link WorkerNodeEntity} by node host
+     * Get a unique ID
      *
-     * @param host
-     * @param port
-     * @return
+     * @return UID
+     * @throws UidGenerateException
      */
-    WorkerNodeEntity getWorkerNodeByHostPort(@Param("host") String host, @Param("port") String port);
+    long getUID() throws UidGenerateException;
 
     /**
-     * Add {@link WorkerNodeEntity}
+     * Parse the UID into elements which are used to generate the UID. <br>
+     * Such as timestamp & workerId & sequence...
      *
-     * @param workerNodeEntity
+     * @param uid
+     * @return Parsed info
      */
-    void addWorkerNode(WorkerNodeEntity workerNodeEntity);
+    String parseUID(long uid);
 
 }

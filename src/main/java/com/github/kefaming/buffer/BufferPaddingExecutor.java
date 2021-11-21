@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.buffer;
+package com.github.kefaming.buffer;
 
-import com.baidu.fsg.uid.utils.NamingThreadFactory;
-import com.baidu.fsg.uid.utils.PaddedAtomicLong;
+import com.github.kefaming.utils.NamingThreadFactory;
+import com.github.kefaming.utils.PaddedAtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;

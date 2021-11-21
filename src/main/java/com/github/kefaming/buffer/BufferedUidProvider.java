@@ -13,32 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid;
+package com.github.kefaming.buffer;
 
-import com.baidu.fsg.uid.exception.UidGenerateException;
+import java.util.List;
 
 /**
- * Represents a unique id generator.
+ * Buffered UID provider(Lambda supported), which provides UID in the same one second
  *
  * @author yutianbao
  */
-public interface UidGenerator {
+@FunctionalInterface
+public interface BufferedUidProvider {
 
     /**
-     * Get a unique ID
+     * Provides UID in one second
      *
-     * @return UID
-     * @throws UidGenerateException
+     * @param momentInSecond
+     * @return
      */
-    long getUID() throws UidGenerateException;
-
-    /**
-     * Parse the UID into elements which are used to generate the UID. <br>
-     * Such as timestamp & workerId & sequence...
-     *
-     * @param uid
-     * @return Parsed info
-     */
-    String parseUID(long uid);
-
+    List<Long> provide(long momentInSecond);
 }

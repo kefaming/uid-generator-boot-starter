@@ -13,21 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.buffer;
+package com.github.kefaming.worker;
+
+import com.github.kefaming.utils.ValuedEnum;
 
 /**
- * If cursor catches the tail it means that the ring buffer is empty, any more buffer take request will be rejected.
- * Specify the policy to handle the reject. This is a Lambda supported interface
+ * WorkerNodeType
+ * <li>CONTAINER: Such as Docker
+ * <li>ACTUAL: Actual machine
  *
  * @author yutianbao
  */
-@FunctionalInterface
-public interface RejectedTakeBufferHandler {
+public enum WorkerNodeType implements ValuedEnum<Integer> {
+
+    CONTAINER(1), ACTUAL(2);
 
     /**
-     * Reject take buffer request
-     *
-     * @param ringBuffer
+     * Lock type
      */
-    void rejectTakeBuffer(RingBuffer ringBuffer);
+    private final Integer type;
+
+    /**
+     * Constructor with field of type
+     */
+    private WorkerNodeType(Integer type) {
+        this.type = type;
+    }
+
+    @Override
+    public Integer value() {
+        return type;
+    }
+
 }

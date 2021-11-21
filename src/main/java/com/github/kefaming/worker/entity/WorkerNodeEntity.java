@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.worker.entity;
+package com.github.kefaming.worker.entity;
 
-import com.baidu.fsg.uid.worker.WorkerNodeType;
+import com.github.kefaming.worker.WorkerNodeType;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.impl;
+package com.github.kefaming.impl;
 
-import com.baidu.fsg.uid.BitsAllocator;
-import com.baidu.fsg.uid.UidGenerator;
-import com.baidu.fsg.uid.buffer.BufferPaddingExecutor;
-import com.baidu.fsg.uid.buffer.RejectedPutBufferHandler;
-import com.baidu.fsg.uid.buffer.RejectedTakeBufferHandler;
-import com.baidu.fsg.uid.buffer.RingBuffer;
-import com.baidu.fsg.uid.exception.UidGenerateException;
+import com.github.kefaming.BitsAllocator;
+import com.github.kefaming.UidGenerator;
+import com.github.kefaming.buffer.BufferPaddingExecutor;
+import com.github.kefaming.buffer.RejectedPutBufferHandler;
+import com.github.kefaming.buffer.RejectedTakeBufferHandler;
+import com.github.kefaming.buffer.RingBuffer;
+import com.github.kefaming.exception.UidGenerateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;

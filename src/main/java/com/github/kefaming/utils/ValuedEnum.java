@@ -13,36 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.baidu.fsg.uid.worker;
-
-import com.baidu.fsg.uid.utils.ValuedEnum;
+package com.github.kefaming.utils;
 
 /**
- * WorkerNodeType
- * <li>CONTAINER: Such as Docker
- * <li>ACTUAL: Actual machine
+ * {@code ValuedEnum} defines an enumeration which is bounded to a value, you
+ * may implements this interface when you defines such kind of enumeration, that
+ * you can use {@link EnumUtils} to simplify parse and valueOf operation.
  *
  * @author yutianbao
  */
-public enum WorkerNodeType implements ValuedEnum<Integer> {
-
-    CONTAINER(1), ACTUAL(2);
-
-    /**
-     * Lock type
-     */
-    private final Integer type;
-
-    /**
-     * Constructor with field of type
-     */
-    private WorkerNodeType(Integer type) {
-        this.type = type;
-    }
-
-    @Override
-    public Integer value() {
-        return type;
-    }
-
+public interface ValuedEnum<T> {
+    T value();
 }
